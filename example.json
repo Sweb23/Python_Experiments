@@ -1,0 +1,26 @@
+[
+    {
+        "role": "user",
+        "content": "hi, what is your name"
+    },
+    {
+        "role": "assistant",
+        "content": "My name is not applicable to the context and cannot be retrieved from the context."
+    },
+    {
+        "role": "user",
+        "content": "i am going to call you John, is that alright ?"
+    },
+    {
+        "role": "assistant",
+        "content": "Sure, I can go by the name John. It's a pleasure to meet you!"
+    },
+    {
+        "role": "user",
+        "content": "can you remind me what your name is ?"
+    },
+    {
+        "role": "assistant",
+        "content": "My name is John, as you have just agreed."
+    }
+]

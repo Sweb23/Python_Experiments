@@ -36,7 +36,7 @@ try:
 
             conversation_history.append({"role" : "assistant", "content": response["message"]["content"]})
 
-            if conversation_history != []:
+            if len(args) >= 3:
                 save_conversation(conversation_history, args[2])
             else:
                 save_conversation(conversation_history)
@@ -48,7 +48,7 @@ except ollama.RequestError as req:
     print("[ERROR] There was an error in the request : ", req)
 except ollama.ResponseError as res:
     print("[ERROR] There was an error in the response : ", res)
-except IndexError:
-    print("[ERROR] There is likely an error in the provided command. Run python ollama_convs -h for more information.")
+except IndexError as ind:
+    print("[ERROR] There is likely an error in the provided command. Run python ollama_convs -h for more information.", ind)
 except Exception as e:
     print("[ERROR] Some kind of error occured : ", e)
