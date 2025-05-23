@@ -9,6 +9,10 @@ Add an image of your choice to the meme format "It's been 3000 years...".
 
 Simple autoclicker. Define custom delays between clicks, press F1 to start and F2 to stop.
 
+## automove.py
+
+Moves the mouse automatically on a regular basis. Press F1 to start and F2 to stop.
+
 ## ollama_convs.py
 
 Ollama wrapper to allow users to save and load previous conversations for their models.

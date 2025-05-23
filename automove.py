@@ -23,7 +23,8 @@ keyboard.wait('f1')
 print("Start.")
 
 while not stop_program:
-    mouse.click()
+    mouse.move(25,25, absolute=False, duration=1)
+    mouse.move(-25,-25, absolute=False, duration=1)
     time.sleep(delay)
 
 print("Stop.")
