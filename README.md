@@ -18,3 +18,7 @@ Moves the mouse automatically on a regular basis. Press F1 to start and F2 to st
 Ollama wrapper to allow users to save and load previous conversations for their models.
 
 usage : python ollama_convs.py <model_name> [optionnal : conversation file (json)]
+
+## crosswords_solver.py
+
+A helper to solve crosswords / Wordle. Available in English and French. Enter word length, fixed letters and required letters.
