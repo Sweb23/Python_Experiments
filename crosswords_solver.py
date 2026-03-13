@@ -14,12 +14,14 @@ def get_words(language: str, length: int, top_n: int = 10000):
 def crossword_candidates(length: int,
                          fixed: list[tuple[str, int]],
                          required: list[str],
+                         excluded: list[str] = [],
                          language: str = 'en',
                          top_n: int = 10000):
     """
     Return a list of candidate words of given length and language that:
     - have fixed letters at given positions
     - contain all required letters (unordered)
+    - do not contain any excluded letter (unordered)
     - come from the top `top_n` most frequent words
     """
     pattern = ["." for _ in range(length)]
@@ -40,9 +42,11 @@ def crossword_candidates(length: int,
         if all(word_counter[c] >= k for c, k in required_counter.items()):
             result.append(word)
 
+    # filtering excluded letters
+    result = [r for r in result if not any(letter in r for letter in excluded)]
+
     return result
 
-# -------------- Demo usage --------------
 if __name__ == "__main__":
     print("Crossword Solver (EN/FR)")
     lang = input("Choose language (en/fr): ").strip().lower()
@@ -50,21 +54,25 @@ if __name__ == "__main__":
 
     # Get fixed letter constraints
     fixed = []
-    print("Enter fixed letter constraints (format: a 1 for 'a' at position 1). Blank line to end.")
-    while True:
-        line = input("> ").strip()
-        if not line:
-            break
-        parts = line.split()
-        if len(parts) != 2:
-            print("Invalid format. Use: <letter> <position>")
-            continue
-        letter, pos = parts[0], int(parts[1])
-        fixed.append((letter, pos))
+    print("Enter fixed letter constraints (format: a 1 b 2 for 'a' at position 1 and 'b' at position 2). Blank line to end.")
+    line = input("> ").strip()
+    parts = line.split()
+    if line and len(parts) % 2 == 0:
+        for i in range(0, len(parts) - 1, 2):
+            try:
+                letter, pos = parts[i], int(parts[i + 1])
+                fixed.append((letter, pos))
+            except Exception as e:
+                print("Invalid format. Use character + integer combinations.")
+                continue
+    elif len(parts) % 2 != 0:
+        print("Invalid format. Use: <letter> <position>")
 
     required = list(input("Enter required letters (in any order, e.g. 'rt' or 'éa'): ").strip())
 
-    matches = crossword_candidates(length, fixed, required, language=lang, top_n=10000)
+    excluded = list(input("Enter excluded letters(in any order, e.g. 'rt' or 'éa'): ").strip())
+
+    matches = crossword_candidates(length, fixed, required, excluded, language=lang, top_n=10000)
     print(f"\nFound {len(matches)} matches:\n")
     print(", ".join(matches[:50]))
     if len(matches) > 50:
